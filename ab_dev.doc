@@ -1,0 +1,558 @@
+                               Address Book (AB)
+                                                      Date: 14th September 1995
+
+Design Brief
+
+The program should store the names and address (and other bits of information)
+in a file.  Information should be in the following form:
+
+    Name
+    Address (and post/zip code)
+    Phone number
+    Fax number
+    Email address
+    Comment
+
+It should be possible to search for an individual, given any piece of
+information.  eg. search for a name, a phone number etc.  It should also be
+possible to print out these details, either all of the people stored on the one
+displayed.
+
+
+Specifications
+
+(*) means deseriable, but not a requirement in the first version.
+
+1. The main window should look something like the following:
+
+    |--------------------------------------------|
+    [o] AB v0.1  10 out of 19               [o][o]
+    |--------------------------------------------|
+    |                                            |
+    |     Name: [ Joe blogs                   ]  |
+    |                                            |
+    |  Address: [ 10 boring avenue            ]  |
+    |           [ Dullsgate                   ]  |
+    |           [ Basingstoke                 ]  |
+    |           [ Notscounty    ] [ NO31 6QZ  ]  |
+    |                                            |
+    |    Phone: [ (0164) 123456               ]  |
+    |      Fax: [ <none>                      ]  |
+    |   E-mail: [ blogs@flibble.blob.uk       ]  |
+    |                                            |
+    |  Comment: [ Nice guy                    ]  |
+    |                                            |
+    |  [ First ] [ Prev ]      [ Next] [ Last ]  |
+    |                                            |
+    |  [ Edit ]                        [  New ]  |
+    |                                            |
+    |--------------------------------------------|
+
+This window should open on the workbench screen, or a named public screen.
+
+2. The edit window should look like this:
+
+    |--------------------------------------------|
+    [o] Edit record                         [o][o]
+    |--------------------------------------------|
+    |                                            |
+    |     Name: [                             ]  |
+    |                                            |
+    | Address 1: [                            ]  |
+    | Address 2: [                            ]  |
+    | Address 3: [            ] Code: [       ]  |
+    |                                            |
+    |     Phone: [                            ]  |
+    |       Fax: [                            ]  |
+    |    E-mail: [                            ]  |
+    |                                            |
+    |   Comment: [                            ]  |
+    |                                            |
+    |   [   Ok   ]                   [ Cancel ]  |
+    |                                            |
+    |--------------------------------------------|
+
+While the edit window is open, the main window is blocked.
+
+3. The GUI should be font adaptive. (*)
+
+4. In the edit window, the string gadgets should store up to 199 + NULL
+characters, although the number displayable in the main window is limited to a
+smaller number, depending on their size.
+
+5. In the Settings menu, it should be possible to set the following things:
+    a) Automatically saving the address book when closed.
+
+Internal format notes
+
+Internally, the records are stored in a linked list (struct MinList), with
+individual fields stored like this:
+
+struct person_record
+{
+    struct node MinNode;
+    UBYTE *name;
+    UBYTE *address_one;
+    UBYTE *address_two;
+    UBYTE *address_three;
+    UBYTE *code;
+    UBYTE *phone_number;
+    UBYTE *fax_number;
+    UBYTE *email_address;
+    UBYTE *comment;
+};
+
+Thus, data fields can be any length because of the use of pointers.  However, a
+limit of 199 chars + NULL is used in the entry string gadgets.  Fields can be
+left blank (the pointers should point to a single NULL) and will be shown as
+such (<none>) in the main window.  There must be a filled-in name though.
+
+Disk file format
+
+On the disk, the file looks something like this.  First is the number of
+records, written as LONG, followed by each record, in the form of all the
+strings.  AmigaOS routines should be used to read and write files to the disk.
+In fact, they should be used where ever possible.
+
+Menus
+
+Here is a provisonal layout for the menus used in the program:
+
+Project             Settings
+----------          ----------
+Open...     AO      x Save on Quit?
+Save...     AS
+Save As...  AA
+~~~~~~~~~~~~~~
+About...    A?
+Quit        AQ
+
+                                                               1st October 1995
+Added Delete gadget to main window.
+
+Removed Fax number gadget.
+
+Empty fields should be NULLs, not pointer to a NULL.
+
+NEW FILE FORMAT.  ID string, followed by the length of the name filed, then the
+name field (no NULL) then the length of the address_one field, then the
+address_one field, and so on.  At end of record a 0x00 means there is more
+records a 0x01 means this is the last one.
+
+Add Edit menu, which has options to search for a specific record.  Search
+window looks like this:
+
+                |----------------------------|
+                [o] Enter search details   [o]
+                |----------------------------|
+                |                            |
+                | Search Type: [G|  Name   ] |
+                | [ Fred Bloggs            ] |
+                |                            |
+                | [    Ok   ]     [ Cancel ] |
+                |                            |
+                |----------------------------|
+
+Improvements to make to v0.1:
+
+a) Add the print option.  Easiest to use AmigaDos file routines, but this
+method is less flexable then using the printer.device.
+
+b) Add ToolType suport.  This is important.  I want to make ab save it's
+settings to disk as ToolTypes.  Things like window position, and state of the
+menus will be saved.  There should aslo be a special option to enable the user
+to automatically load a address book database in memory when the program first
+loads.
+
+c) Need to tidy up source code, especially event.c.  Possibley split functions
+such as Next, New (project) and search into seperate functions, possibly using
+a new .c file, actions.c?
+
+d) MAYBE make the address fields in main_window a single bevelbox instead of
+lots of TEXT_KINDs.
+
+e) Make busy pointers that work properly.  Harder then I thought.  Need to make
+them more intelegent.
+
+f) For a very much later version, I should add an ARexx port.  This is big
+step.
+
+                                                               6th October 1995
+
+b) and c) have been completed.
+
+                                                             18th December 1995
+
+After a couple of bug-fixes, the new version is 1.0a.  See ab.h for info on
+these bug fixes.
+
+b) from above has been completed, although auto-load address book files isn't
+needed because of the default-tool facilitity in Project icons.
+
+Command line support has been added too.  You can load AB files from the
+command line, and also through shift-clicking and default-tool.
+
+Improvements to make to v1.0a:
+Still to do is a), d), e) and f) from above list, plus
+
+g) POSSIBLE: Make the main window accessable during edits in the edit window. 
+This would be quite easy to implement, but I don't think it would be very
+useful.
+
+h) Font senisitve GUI.  Maybe use a third-party GUI library?  Not MUI though,
+as that's a nighmare, and it would mean that it wouldn't work on machines with
+not much memory.  Would be best to make GUI font sensitive in program (gui.c,
+function name: make_gui_font_sensitive?)  Difficult!
+
+                                                             19th December 1995
+
+Ideas for much later versions:
+
+i) Clipboard support.  This would be useful, because you'd be able to take
+names and address and plonk them streight into a word pro.  There would need to
+be some method of configuring the output though...
+
+j) Bloody printers.
+
+k) Dialing the phone automatically.  Need phone-dial spec.
+
+                                                              12th January 1996
+
+Added j) printer support!  Added a print option to project menu.  When selected
+it prints out the entire project.  Would be better if you could configure the
+output so only names and phone numbers (say) were printed in a table form. 
+Also need to make some way of giving the user the option of only printing the
+current entry, or all of them.  (A settings menu item that's checkable,
+perhaps?)
+
+More thoughts...
+
+Lost .guide file.  It got deleted somehow, no backup :(.  I'll bring the .lha
+file home from uni, and copy it back.  I've decided to copy the version history
+from ab.h and plonk it streight into the .guide file.
+
+I've been thinking of moving the address_code text underneath the address_four
+text, instead of being next to it.  It would become a fifth address line then.
+This would be more suited to international addreesses.  Problem is it would
+make the window even taller.
+
+                                                              28th January 1996
+
+Placed new version on web page.  This is v1.1.
+
+As I described above, I have moved the address code field below the other
+address lines, and it has become a fifth address line.  Internally, the address
+is stored as an array of five string pointers.
+
+Added tone-dialing feature.  This was first prototyped as a stand-alone
+program, then it was added into AB.  This took about 2 days, and was
+considerably easier then I thought to implement.  As a result, the main window
+gadget layout has changed yet again.  Now the bottom of the window has four
+gadgets aranged in a grid of two rows.
+
+Other misc changes include: using ctype.h functions instead of coding them
+myself and I fixed the age-old Project icon bug.  AB now supports Project
+icons.  Also, I have changed some of the requester texts so that entry lists
+are now refered to as Projects.
+
+I also mucked about with font-sensitive GUI code.  Didn't work, so I have
+abandoned font-sensitive GUI for now.
+
+                                                               4th Febuary 1996
+
+Notes on making GUI font sensitive:
+
+First I will write a function called length_of_longest_string wich will take a
+pointer to an array of string pointers as the argument and return the length of
+the longest string in pixels (using the screen font).
+
+The function can then be used to calculate the position of the various gadgets:
+
+(a) is the longest string out of "Name:", "Address:", "Phone", "E-mail:",
+"Comment".
+
+(b) is the longest string out of "First", "Prev", "Next", "Last", "Edit",
+"New", "Delete", "Dial".
+
+(c) is a border offset (8 pixels).
+
+The TEXT_KIND gadgets which are to display entry details will start at (a) + 8.
+There width will be the width of the window minus the starting position of the
+entry gadgets.
+
+The BUTTON_KIND gadgets will start at (c) and each have a width of (b).  The
+window width can now be calculated.  It will be ((c) * 2) + ((b) * 4) + ((c) *
+3)
+
+This should hopefully be all we need to know to layout the GUI for the main
+window.
+
+                                                               4th Febuary 1996
+
+GUI is now font-sensitive!
+
+                                                               5th Febuary 1996
+
+AREXX port ideas:
+
+Possible commands include:
+
+    QUIT FORCE/S: FORCE quits without asking about changes being lost.
+    FIRST, LAST, PREV, NEXT: same as the gui buttons.
+    GET_ENTRY <field no>: This would get the selected field from the currently
+viewed entry.
+    PUT_ENTRY <name> <address one>... : This would make a new entry.
+    DELETE: Deletes the current entry.
+    DIAL: Dials the currently viewed entry.
+    DIAL_NUMBER <phone no>: Dials any old number that is passed.
+    SEARCH <type> <string>: Searches.
+    SEARCH_AGAIN: searches again.
+    OPEN <filename>, SAVE, SAVE AS <filename>: These commands would do the same
+as the menu option.
+
+Return code (RC) maining:
+
+    RC = 0 (RC_OK) means command execute ok.
+    RC = 5 (RC_WARN) means that command could not be carried out.
+    RC = 10 (RC_ERROR) means that command requires parameters, or that the
+parameters were out of range.
+    RC = 20 (RC_FATAL) means that an unknown command was issued.
+
+                                                               7th Febuary 1996
+
+Implemented commands:
+
+QUIT, FIRST_ENTRY, LAST_ENTRY, PREV_ENTRY, NEXT_ENTRY, DELETE_ENTRY, 
+DIAL_ENTRY, NEW_PROJECT, OPEN_PROJECT, SAVE_PROJECT, SAVE_AS_PROJECT, SEARCH,
+SEARCH_AGAIN, GET_ENTRY_DETAILS
+
+See .guide for more information on these commands.
+
+NOTE!!!  I'm still not sure if I should keep the ARexx port. It seems an
+interesting idea, but I'm not sure if people would benifit from the progarm
+having the port...
+
+                                                             25th Feburary 1996
+
+I've decided to keep the ARexx port.  Besides, if people don't want to use the
+port they don't have to.
+
+Bozie complained about the print option printing blank lines for empty fields,
+so fixed this into the print routine.  This also fixed a possible big in the
+print-string building.  I think passing a NULL as a string pointer in a
+formated string is illegal.  Also changed the file output routines slightly.
+
+Notes on two new ARexx commands:
+
+    NEW_ENTRY <name> : Constructs a new entry with the name field set to
+<name>.
+    SET_ENTRY_DETAILS <field no> <text> : Changes (or adds) the current entry's
+field specified in <field no>.
+
+How the new commands work:
+
+NEW_ENTRY is fairly streight forward.  Just allocate a new entry, allocate
+memory for the name and link it in.
+
+SET_ENTRY_DETAILS is more complex.  First need to parse arguments to check that
+they're ok.  Then we need to see if the field has been used before.  If it has,
+then clean the old text and allocate memory for the new text.  If it hasn't
+been used before, then just alalocate memory for the text and copy the field
+text across.
+
+                                                                 6th March 1996
+
+Added the two new commands mentioned above.  (Although SET_ENTRY_DETAILS needs
+to be modified to let the user clear a field, to be done be making the field
+text "Empty field".)
+
+Bozie requested added public screen support, which I have now done.  But some
+programs do not close there public screens properly (see version history). 
+Added zoom gadget to main AB window.
+
+                                                                13th March 1996
+
+Added improvement to SET_ENTRY_DETAILS that was mentioned above plus HIDE and
+SHOW commands.  Also added commodity support.
+
+                                                                21st March 1996
+
+Possible improvements to v1.1e.  Mostly conserned with making internals neater
+and easyer to maintain:
+
+(a) Improve printer_project().  Decision on weather the header should be
+printed should be made here, instead of write_entry_to_printer_file().
+
+(b) BIG STEP.  Make the event multi-threaded.  Eek.
+
+(c) Change entry_node_type into an array of string pointers, instead of lots of
+string pointers with different var names.  Pain in the neck to do, but worth it
+cos it would make program smaller and easier to add extra features, such as
+Bozie's configurable label idea.
+
+(d) Improve arexx comand parsing, possibly using ARexx box, or ParsArgs() dos
+function.
+
+(e) Clip board support.
+
+(f) More example ARexx scripts.
+
+Other stuff:  I will produce a version of ABv1.2 for tommorow (Thurseday 21st)
+and if Bozie has not found any bugs (he should have emailed me his ABv1.1e
+report file by then) I will upload it to Aminet.  If he has found bugs, then I
+will fix them and upload ABv1.3 as quickly as possible.  Regardless of weather
+I upload it to Aminet I will make a new release on my web page.
+
+                                                                22nd March 1996
+
+Noticed that when you make Dopus shown, when it is already shown, then the
+screen the window appears on is made the front most screen.  AB dosn't do this.
+No problem, as I think it is Dopus which is in the wrong, as Exchange works
+like AB.
+
+
+                                                             8th September 1996
+
+Wow... haven't done anything to AB in ages.  Little improvement I am going to 
+add for AB v1.2b is an indicator of the current entry number in the window
+title (instead of the hotkey).  This will make it it easier to add the slider
+gadget for moving about records.  This number will not be updated by counting
+through the entries but instead read from the record structure.  This means that
+a way will need to be found of updating this number as entries are added,
+deleted etc.
+
+Last upload to Aminet was ABv1.2 with doc fixes.  OS2.0 compatibility still not
+tested.
+
+
+                                                            10th September 1996
+
+Added in code to update the entry number (which is stored within the record).
+Tested this code and it works perfectly.  Also played around with sliders using
+my gadtools test prog (Base) and now know how they work.  Next step is to write
+slider code into AB.  The following chnages need to be made:
+
+1. Modifiying the gadget layout.  Slider will replace the four movement buttons.
+This is the easy bit.
+
+2. Modify event.c.  Playing with the slider should update the entry details
+display, but not the other gadgets (Dial, New etc.).  I will have to change
+main_window_updater abit then.  I'll split this function up into:
+main_window_update_display and main_window_update_buttons.  Playing with
+the slider will call main_window_update_display, most everything else will
+call both of these update functions.
+
+3. Transfering the entry number to viewed_entry_node pointer.  This could be
+tricky.  Two ways of doing this:
+
+    a. Manually counting through from the list head each time user twidles
+       with slider.
+
+    b. Storing old position of slider, and stepping through a node for each
+       position moved, left or right.
+
+I will use b.
+
+
+                                                            13th September 1996
+
+Added in a slider, but used method a instead of b.  Works pretty quick still.
+Also put in code for keyboard shortcuts (using IDCMP_VANILLAKEY) which works
+ok.  Minor adjustements to the code that checks there are strings in the
+string gadgets needed to avoid code duplication.  Basically this code was moved
+into the message event handlers, in a simular way to the confirmation code
+for unsaved changes.
+
+Minor updates to .guide file made.
+
+File format revisions:
+
+The file format needs to be updated to make it more expandable.  In particular,
+the file header needs to be removed, and replaced with a main header string/
+sub header string.  The main header will be fixed with "AB PROJECT" and the
+sub-header string will contain the version number and date of the AB program
+which saved the project.
+
+Strings will be saved as simple null terminated things and not with length at
+the start, like weird BCPL beasties.
+
+
+                                                            20th September 1996
+
+Following is notes on biggest change to AB ever.  Plan is to make entry names
+configurable.  This would let user tailor AB more to their specific
+requirements, say if they didn't want the email field they could get rid of it.
+
+Several changes need to be made:
+
+1. Internal changes to entry_node_type.  An array of string pointers would be
+used instead of descrete string pointers.  There would be 9 of these:
+
+struct entry_node_type
+{
+    struct MinNode node;
+    LONG entry_node_number;
+    UBYTE *entry_field_strings[NO_OF_FIELDS];
+};
+
+All functions which access the gadgets and fields strings would need to be
+rewriten to utilse loops instead of accessing the strings by name, as
+previously.  This has the benifit of being less code to write.
+
+2. Changes to settings.  Two extra bits of the settings_type structure need to
+be added:
+
+struct settings_type
+{
+    ...
+    LONG no_of_fields_used;
+    UBYTE entry_field_name_strings[NO_OF_FIELDS][GENERAL_STRING_SIZE];
+    LONG entry_field_pixel_gap[NO_OF_FIELDS];
+    ...
+};
+
+no_of_fields_used is the number of fileds actually required by Mr. AB user.
+entry_field_name_strings holds the name of each field (Name, E-mail etc.).
+In later versions this should be chopped to less then 10 charecters.
+entry_field_pixel_gap is the gap between each TEXT_KIND gadget making up the
+entry display.  The gap should appear AFTER each gadget.  This will make
+gadget layout alittle simpler also.
+
+3. Printing.  write_entry_to_printer_file() needs to use these filed names.
+A little work needs to be done to keep entry text tabulated correctly.
+
+4. Searhing.  Should be possible to search using any field using the name
+defined in the settings.
+
+5. Data files.  No changes required here, besides convering code to use loops
+in the writing of each field.
+
+6. ToolType names.  Names I'll use are:
+
+NUMBER_OF_FIELDS : number of fields to use.
+FIELD_NAME_n : name of each field.
+FIELD_GAP_n : gap between field n and field n+1.
+
+Had a try at coding some of this and it appears to be more difficult then I
+thought.  For instance, what about unused gadgets?  What happens if the
+pointers to those gadgets are left as nulls?  If that is a problem, then the
+gadgets will have to be re-ordered so that the entry details gadgets are
+last in the list.  Well anyway, I'll see if I can think of a better way
+of achieving this.
+
+In the mean time, I will add clipboard support (finally!)
+
+                                                               7th December 1996
+
+Can't remember writing the stuff above.  Hmm.  Well I got an email from BenB
+(bloke on #amiga) and he requested making movement through cursor keys.  I was
+going to do this, but I felt lazy and used '.' and ',' keys instead.  Cursor
+keys are now used.  Emailed BenB new version, and asked him if he new anyone
+with KS2.0 to test compatiblity.  No reply on this yet.
+
+Toyed with idea of doing an X version of AB.  As I have netbsd on my amiga now
+I could work on this at home.  But problem is my netbsd system is down now so
+this is on hold.
+
+Looking at some of the things above, I think I could finally get clipboard
+suport added.  This would work using clipboard device and FTXT formatted text.

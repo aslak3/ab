@@ -1,0 +1,113 @@
+v0.1 Unknown date
+
+      * Test version.
+
+v1.0 7-11-95
+
+      * First release (on my web page)
+
+v1.0a 21-11-95, 28-11-95, 3-12-95, 18-12-95
+
+      * Major bug in search function fixed.  It resulted in an accidental
+        change of search type.  Picard reported strange things when
+        searching.
+      * Added command line support, you can now load an AB file on 
+        startup.
+      * Added default tool and shift-clicking to wbmain().  Only works on
+        AB files which are in the same dir as program.  Need to fix this!
+
+v1.0b 12-1-96, 13-1-96, 20-1-96, 22-1-96
+
+      * Added printer support at last!  Pretty basic still, but useful.
+      * Rearranged GUI layout slightly.  Made the address details in the
+        entry_node into an array of 5 string pointers.
+      * Added tone dialling.  Tested as a stand alone program, but is un-
+        tested in AB.  Rearranged gadget layout again to incorporate the
+        dial gadget.
+      * Added tooltypes to make tone dialling times configurable.  Fixed
+        Workbench startup.  Now accepts project icons in any directory.
+
+v1.1 22-1-96
+
+      * New release on web page.
+
+v1.1a 25-1-96, 31-1-96
+
+      * General tweaking.
+      * Added the quit message requester.  If changes have been made 
+        since the last save, then a warning requester will appear.
+
+v1.1b 4-2-96, 6-2-96, 10-2-96
+
+      * GUI is now font sensitive.  Doesn't check that window will fit on
+        screen though.
+      * Added an ARexx port!  Command parser is a bit primitive, but it
+        works.  15 commands are supported.
+      * Added ARexx command list and an example script to the
+        documentation.
+
+v1.1c 24-2-95, 28-2-96
+
+      * At the request of Philip Reyntens, printing has been improved so
+        that blank fields are no longer printed.  Also added two more
+        commands: NEW_ENTRY and PUT_ENTRY_DETAILS.  These two commands
+        make it possible to add new entries from with an ARexx script.
+      * Added the two new commands to the documentation.
+
+v1.1d 5-3-96, 6-3-96, 7-3-96, 9-3-96
+
+      * Added Public Screen support.  It appears that some programs
+        which open public screens (namely MUI and Memacs) do not close
+        their public screens when the last visitor window screen has left.
+        Not sure if this is correct behavior yet.
+      * Added a Zoom gadget to AB's main window.
+      * Added Print Headings? and Print All? menu items, as well as their
+        respective tooltypes.  Also reorganised the way that default
+        settings are stored.
+      * Made Tooltype saving better, and also made it so you can clear a
+        field with the PUT_ENTRY_DETAILS command.  Updated documentation.
+
+v1.1e 12-3-96, 13-3-96, 16-3-96, 23-3-96
+
+      * Added HIDE and SHOW ARexx commands.
+      * Added commodity support.
+      * Added Amiga-F shortcut for Search function.  Wow.
+      * Improved commodity support.  Fixed potentioal bug in
+        close_commodity, and added code to properly detect for duplicate
+        copies of AB being run together.
+
+v1.2 26-3-96, 28-3-96, 29-3-96
+
+      * New release on web page.
+      * Problems in documentation.  Fixed them.
+      * Changed the main window updating code so that the Dial button is
+        only active when the current entry contains a phone number.  Also
+        added in new command, DIAL_NUMBER which dials the number specified
+        in its argument.  Added command description to documentation.  Now
+        detects an illegal hotkey, but does nothing about it.
+
+1.2a 14-5-96, 13-8-96, 10-9-96, 13-9-96, 17-9-96, 22-11-96
+
+      * Chris Davis requested two things: AB should run on OS2.0, and AB
+        should have a tooltype to set the window width.  This version has
+        these two things added.  Compatability with OS2.0 is untested
+        however.  He requested other things, but they will have to wait
+        till later.
+      * v2.0 compatibility still not tested.  Removed need for
+        NO_OF_AREXX_COMMANDS.
+      * The window title now shows the number of the currently viewed
+        entry and the number of entries in the project.  The four
+        movement buttons have been replaced with a single scroll bar.
+      * Added keyboard shortcuts for gadgets.
+      * Internal changes and made it so entries are sorted by surname.
+        Fixed two bugs which have been in the program since the start.
+        Both bugs were to do with access to memory not owned by the
+        program.
+      * BenB requested that cursor keys be used to move through records
+        instead of . and ,.  Did this
+
+1.2b 6-4-97
+
+      * Chris Davis reported that AB didn't run under 2.0, so I have
+        given up in getting it to run on the older OS for now.  Also he
+        asked me to add in the OLD_SORTING tooltype which I have done.

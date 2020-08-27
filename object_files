@@ -1,0 +1,11 @@
+event.o
+misc.o
+tonedial.o
+gui.o
+main.o
+entries.o
+actions.o
+settings.o
+arexx.o
+printer.o
+commodity.o
