@@ -1,8 +1,8 @@
 # AB
 
-This is the first large C program I ever wrote. It is an address book
-program for AmigaOS 3. The below is a conversion of the AB.guide help
-file to HTML, made with the script I found at
+This is the first large C program I ever wrote, in 1996-97. It is an
+address book program for AmigaOS 3. The below is a conversion of the
+AB.guide help file to HTML, made with the script I found at
 https://github.com/niklasekstrom/amigaguide_to_html
 
 I made this repo just to preserve the code, nothing more.
@@ -23,25 +23,25 @@ I made this repo just to preserve the code, nothing more.
                                  <b>CONTENTS</b>
 
 
-    <a href="#distribution">     Distribution    </a>    FREEWARE notice.
+    <a href="#distribution">Â Â Â Â Â DistributionÂ Â Â Â </a>    FREEWARE notice.
 
-    <a href="#introduction">     Introduction    </a>    What this program does.
+    <a href="#introduction">Â Â Â Â Â IntroductionÂ Â Â Â </a>    What this program does.
 
-    <a href="#installation">     Installation    </a>    The system requirements are listed here too.
+    <a href="#installation">Â Â Â Â Â InstallationÂ Â Â Â </a>    The system requirements are listed here too.
 
-    <a href="#starting">    Starting up AB   </a>    Loading up through Workbench or CLI.
+    <a href="#starting">Â Â Â Â StartingÂ upÂ ABÂ Â Â </a>    Loading up through Workbench or CLI.
 
-    <a href="#operation">      Operation      </a>    The main section.
+    <a href="#operation">Â Â Â Â Â Â OperationÂ Â Â Â Â Â </a>    The main section.
 
-    <a href="#menus">        Menus        </a>    Description of the menus.
+    <a href="#menus">Â Â Â Â Â Â Â Â MenusÂ Â Â Â Â Â Â Â </a>    Description of the menus.
 
-    <a href="#configure">     Configuring     </a>    Setting up AB to suit you.
+    <a href="#configure">Â Â Â Â Â ConfiguringÂ Â Â Â Â </a>    Setting up AB to suit you.
 
-    <a href="#arexx_support">    AREXX support    </a>    All about AB'S ARexx port.
+    <a href="#arexx_support">Â Â Â Â AREXXÂ supportÂ Â Â Â </a>    All about AB'S ARexx port.
 
-    <a href="#history">   Version History   </a>    Fascinating...
+    <a href="#history">Â Â Â VersionÂ HistoryÂ Â Â </a>    Fascinating...
 
-    <a href="#author">       Author        </a>    My beta-testers are listed here too.
+    <a href="#author">Â Â Â Â Â Â Â AuthorÂ Â Â Â Â Â Â Â </a>    My beta-testers are listed here too.
 
 
          <b>AB and its documentation are (c) 1995-97 Lawrence Manning</b>
@@ -128,7 +128,7 @@ included.
     *   Installs as a commodity.
 
 
-    See: <a href="#installation">Installation</a>, <a href="#starting">Starting up AB</a> and <a href="#operation">Operation</a>
+    See: <a href="#installation">Installation</a>, <a href="#starting">StartingÂ upÂ AB</a> and <a href="#operation">Operation</a>
 </pre>
 </div>
 <div id="installation">
@@ -215,7 +215,7 @@ persons phone number for you.  AB also installs as a commodity, so it is
 possible to control it via the Exchange program.
 
 
-    See: <a href="#menus">Menus</a>, <a href="#tonedial">Tone-dial usage</a> and <a href="#configure">Configuring</a>
+    See: <a href="#menus">Menus</a>, <a href="#tonedial">Tone-dialÂ usage</a> and <a href="#configure">Configuring</a>
 </pre>
 </div>
 <div id="menus">
@@ -229,11 +229,11 @@ possible to control it via the Exchange program.
 
 The menus are divided into three sections:
 
-   <a href="#project_menu">   Project    </a>
+   <a href="#project_menu">Â Â Â ProjectÂ Â Â Â </a>
 
-   <a href="#edit_menu">   Edit       </a>
+   <a href="#edit_menu">Â Â Â EditÂ Â Â Â Â Â Â </a>
 
-   <a href="#settings_menu">   Settings   </a>
+   <a href="#settings_menu">Â Â Â SettingsÂ Â Â </a>
 </pre>
 </div>
 <div id="project_menu">
@@ -420,7 +420,7 @@ All settings have sensible defaults.
 * These settings will be ignored if the window is smaller then calculated
   minimum size.
 
-    See: <a href="#tonedial">Tone-dail usage</a> and <a href="#settings_menu">Settings menu</a>
+    See: <a href="#tonedial">Tone-dailÂ usage</a> and <a href="#settings_menu">SettingsÂ menu</a>
 </pre>
 </div>
 <div id="arexx_support">
@@ -477,7 +477,7 @@ As is usual for ARexx scripts, the command 'options results' must be issued
 in order to receive the commands RESULT value.
 
 
-    See: <a href="#arexx_commands">ARexx commands</a> and <a href="#example_scripts">Example scripts</a>
+    See: <a href="#arexx_commands">ARexxÂ commands</a> and <a href="#example_scripts">ExampleÂ scripts</a>
 </pre>
 </div>
 <div id="arexx_commands">
@@ -528,7 +528,7 @@ Function:
     These commands navigate about the project.
 
 Results:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 
 
 Command:
@@ -538,7 +538,7 @@ Function:
     This command deletes the current entry.
 
 Results:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 
 
 Command:
@@ -576,7 +576,7 @@ the command was selected from the project menu.  &lt;filename> is the name of
 the project file to use.
 
 Results:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 
 
 Command:
@@ -596,7 +596,7 @@ matches the search parameters then nothing will appear to have changed.
 
 Results:
     RC will be 0 regardless of weather a match is found or not.  If a match
-is not found then RESULT will be 'Not found'.  See the <a href="#example_scripts">example scripts</a> for a
+is not found then RESULT will be 'Not found'.  See the <a href="#example_scripts">exampleÂ scripts</a> for a
 demonstration of searching.
 
 
@@ -619,7 +619,7 @@ Function:
 tooltypes.
 
 Results:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 
 
 Command:
@@ -649,7 +649,7 @@ Function:
 made the currently viewed entry.
 
 Results:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 
 
 Command:
@@ -665,7 +665,7 @@ are sorted alphabetically with respect to the names.  Passing a &lt;string> of
 possible to clear the Name field of an entry in this way though.
 
 Result:
-    See <a href="#arexx_support">ARexx support</a>.
+    See <a href="#arexx_support">ARexxÂ support</a>.
 </pre>
 </div>
 <div id="example_scripts">
